@@ -117,7 +117,7 @@ namespace WebApi.Controllers
         }
         #endregion
 
-        #region
+        #region DictionaryObject
         [HttpGet]
         [Route("api/QueryStringModel/DictionaryObject")]
         public string DictionaryObject([FromUri] Dictionary<string,string> model)
