@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "ServerSend";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+    var evtSource = new EventSource("/api/ServerSend/");
+    evtSource.addEventListener("message", function (e) {
+        var newElement = document.createElement("div");
+
+        var obj = JSON.parse(e.data);
+        newElement.innerHTML = obj.t;
+        document.body.appendChild(newElement);
+    });
+</script>

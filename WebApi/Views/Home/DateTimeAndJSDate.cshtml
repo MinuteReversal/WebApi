@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "DateTimeAndJSDate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<button id="postDate">日期提交</button>
+<button id="postString">String日期提交</button>
+<button id="postUTC">UTC日期提交</button>
+<button id="postISO">ISO日期提交</button>
+<button id="getISO">获取ISO日期</button>
+@section scripts{
+    <script>
+        function log(text) {
+            var div = document.createElement("div");
+            div.innerText = text;
+            document.body.appendChild(div);
+        }
+        $("#postString").on("click", function () {
+            var d = new Date().toString();
+            log("request:" + d);
+            $.post("/api/DateTimeAndJSDate", {
+                "": d
+            }, function (response) {
+                log("response:" + response);
+            });
+        });
+
+        $("#postDate").on("click", function () {
+            var d = new Date();
+            log("request:" + d);
+            $.post("/api/DateTimeAndJSDate", {
+                "": d
+            }, function (response) {
+                log("response:" + response);
+            });
+        });
+
+        $("#postUTC").on("click", function () {
+            var d = new Date().toUTCString();
+            log("request:" + d);
+            $.post("/api/DateTimeAndJSDate", {
+                "": d
+            }, function (response) {
+                log("response:" + response);
+            });
+        });
+
+        $("#postISO").on("click", function () {
+            var d = new Date().toISOString();
+            log("request:" + d);
+            $.post("/api/DateTimeAndJSDate", {
+                "": d
+            }, function (response) {
+                log("response:" + response);
+            });
+        });
+
+        $("#getISO").on("click", function () {
+            log("request:");
+            $.get("/api/DateTimeAndJSDate/ISO").done(function (response) {
+                log("response:" + response);
+            });
+        });
+    </script>
+}
+

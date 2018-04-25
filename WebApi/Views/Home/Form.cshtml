@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>/UploadForm/Parameter</h2>
+<form method="POST" action="/UploadForm/Parameter" enctype="multipart/form-data">
+    <input type="text" name="Name" value="zhy" /><br />
+    <input type="number" name="Age" value="33" /><br />
+    <input type="file" name="File" /><br />
+    <input type="submit" value="提交" />
+</form>
+<h2>/UploadForm/Model</h2>
+<form method="POST" action="/UploadForm/Model" enctype="application/x-www-form-urlencoded">
+    <input type="text" name="Name" value="zhy" /><br />
+    <input type="number" name="Age" value="33" /><br />
+    <input type="file" name="File" /><br />
+    <input type="submit" value="提交" />
+</form>

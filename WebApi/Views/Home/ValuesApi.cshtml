@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "ValuesApi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ValuesApi</h2>
+<button id="btnGET">GET</button>
+<button id="btnPOST">POST</button>
+<button id="btnPUT">PUT</button>
+<button id="btnDELETE">DELETE</button>
+@section scripts{
+    <script>
+        $("#btnGET").on("click", function (evt) {
+            $.ajax({
+                url: "/api/values/123",
+                method: "GET",
+                dataType: "json",
+                data: { "": "hello world" },
+                success: function (data) {
+                    alert(JSON.stringify(data));
+                }
+            });
+        });
+        $("#btnPOST").on("click", function (evt) {
+            $.ajax({
+                url: "/api/values",
+                method: "POST",
+                dataType:"json",
+                data: { "": "hello world" },
+                success: function (data) {
+                    alert(JSON.stringify(data));
+                }
+            });
+        });
+        $("#btnPUT").on("click", function () {
+            $.ajax({
+                url: "/api/values/123",
+                method: "PUT",
+                dataType: "json",
+                data: { "": "hello world" },
+                success: function (data) {
+                    alert(JSON.stringify(data));
+                }
+            });
+        });
+        $("#btnDELETE").on("click", function (evt) {
+            $.ajax({
+                url: "/api/values/123",
+                method: "DELETE",
+                dataType: "json",
+                success: function (data) {
+                    alert(JSON.stringify(data));
+                }
+            });
+        });
+    </script>
+}

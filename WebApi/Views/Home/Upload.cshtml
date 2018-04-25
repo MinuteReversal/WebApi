@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "Upload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<fieldset>
+    <legend>示例1</legend>
+    <form name="form1" method="post" enctype="multipart/form-data" action="/api/upload">
+        <div>
+            <label for="caption">Image Caption</label>
+            <input id="caption" name="caption" type="text" />
+        </div>
+        <div>
+            <label for="image1">Image File</label>
+            <input id="image1" name="image1" type="file" />
+        </div>
+        <div>
+            <input type="submit" value="Submit" />
+        </div>
+    </form>
+</fieldset>
+<fieldset>
+    <legend>示例2</legend>
+    <form name="trip_search" method="post" enctype="multipart/form-data" action="/api/upload">
+        <div>
+            <input type="radio" name="trip" value="round-trip" />
+            Round-Trip
+        </div>
+        <div>
+            <input type="radio" name="trip" value="one-way" />
+            One-Way
+        </div>
+
+        <div>
+            <input type="checkbox" name="options" value="nonstop" />
+            Only show non-stop flights
+        </div>
+        <div>
+            <input type="checkbox" name="options" value="airports" />
+            Compare nearby airports
+        </div>
+        <div>
+            <input type="checkbox" name="options" value="dates" />
+            My travel dates are flexible
+        </div>
+
+        <div>
+            <label for="seat">Seating Preference</label>
+            <select id="seat" name="seat">
+                <option value="aisle">Aisle</option>
+                <option value="window">Window</option>
+                <option value="center">Center</option>
+                <option value="none">No Preference</option>
+            </select>
+        </div>
+    </form>
+</fieldset>

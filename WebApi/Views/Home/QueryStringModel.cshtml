@@ -1,0 +1,183 @@
+﻿
+@{
+    ViewBag.Title = "QueryStringModel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="http://localhost/javascript/3.试验/querystringConvert/querystringConvert.js"></script>
+<div>
+    <div><textarea cols="40" rows="20" id="textQueryString" placeholder="querystring"></textarea></div>
+    <div><button onclick="toQueryString()">ToQueryString&uarr;</button><button onclick="toObject()">ToObject&darr;</button></div>
+    <div><textarea cols="40" rows="20" id="textJson"></textarea></div>
+    <div>
+        <button onclick="fillJson('binaryTree')">binaryTree</button>
+        <button onclick="fillJson('tree')">tree</button>
+        <button onclick="fillJson('object')">object</button>
+        <button onclick="fillJson('array')">array</button>
+        <button onclick="fillJson('arrayInObject')">arrayInObject</button>
+        <button onclick="fillJson('arrayInObject2')">arrayInObject2</button>
+        <button onclick="fillJson('objectInArray')">objectInArray</button>
+        <button onclick="fillJson('clear')">clear</button>
+    </div>
+    <div>
+        <select id="requestUrl">
+            <option selected value="/api/QueryStringModel/SimpleObject">/api/QueryStringModel/SimpleObject</option>
+            <option value="/api/QueryStringModel/ArrayObject">/api/QueryStringModel/ArrayObject</option>
+            <option value="/api/QueryStringModel/ArrayInObject">api/QueryStringModel/ArrayInObject</option>
+            <option value="/api/QueryStringModel/ArrayInObject2">api/QueryStringModel/ArrayInObject2</option>
+            <option value="/api/QueryStringModel/TreeObject">api/QueryStringModel/TreeObject</option>
+            <option value="/api/QueryStringModel/BinaryTreeObject">api/QueryStringModel/BinaryTreeObject</option>
+            <option value="/api/QueryStringModel/ObjectInArray">api/QueryStringModel/ObjectInArray</option>
+            <option value="/api/QueryStringModel/DictionaryObject">api/QueryStringModel/DictionaryObject</option>
+        </select>
+        <button id="submitRequest">提交</button>
+    </div>
+    <div>
+        <textarea id="responseBody" cols="40" rows="20"></textarea>
+    </div>
+</div>
+<script>
+    var tree = {
+        name: "root",
+        children: [
+            {
+                name: "1",
+                children: [{
+                    name: "2",
+                    children: [
+                        {
+                            name: "3",
+                            children: [
+                                {
+                                    name: "4",
+                                    children: [],
+                                    level: 4
+                                }
+                            ],
+                            level: 3
+                        }
+                    ],
+                    level: 2
+                }],
+                level: 1
+            },
+            {
+                name: "6",
+                children: [],
+                level: 1
+            }
+        ]
+    };
+
+    var array = [
+        "lily",
+        "hanmeimei",
+        "lucy",
+        "lilei"
+    ];
+
+    var simpleObject = {
+        name: "Zhy",
+        age: 32,
+        is80s: true
+    };
+
+    var binaryTree = {
+        value: "a",
+        left: {
+            value: "b",
+            left: {
+                value: "d",
+                left: null,
+                right: null
+            },
+            right: null
+        },
+        right: {
+            value: "c",
+            left: null,
+            right: {
+                value: "e",
+                left: null,
+                right: null
+            }
+        }
+    };
+
+    var arrayInObject = {
+        languages: [
+            { name: "C++" },
+            { name: "C#" },
+            { name: "Java" },
+            { name: "ECMAScript" }
+        ]
+    };
+
+    var arrayInObject2 = {
+        a: array
+    };
+
+    var objectInArray = [
+        { name: "name", value: "lily" },
+        { name: "name", value: "lucy" },
+        { name: "name", value: "lilei" },
+        { name: "name", value: "hanmeimei" }
+    ];
+
+    function toQueryString(evt) {
+        var arrayName = ['array', 'objectInArray'].indexOf(modelType) > -1 ? "model" : null;
+        var o = textJson.value === "" ? "" : JSON.parse(textJson.value);
+        textQueryString.value = querystringConvert.serializeObject(o, arrayName);
+    }
+
+    function toObject(evt) {
+        var arrayName = ['array', 'objectInArray'].indexOf(modelType) > -1 ? "model" : null;
+        textJson.value = JSON.stringify(querystringConvert.deserializeObject(textQueryString.value, arrayName));
+    }
+
+    var modelType = "";
+    function fillJson(dataType) {
+        modelType = dataType;
+        var data = null;
+        switch (dataType) {
+            case "array":
+                data = array;
+                break;
+            case "binaryTree":
+                data = binaryTree;
+                break;
+            case "tree":
+                data = tree;
+                break;
+            case "object":
+                data = simpleObject;
+                break;
+            case "arrayInObject":
+                data = arrayInObject;
+                break;
+            case "arrayInObject2":
+                data = arrayInObject2;
+                break;
+            case "objectInArray":
+                data = objectInArray;
+                break;
+            default:
+                data = '';
+                break;
+        }
+        textJson.value = data === "" ? data : JSON.stringify(data);
+    }
+
+    var xhr = new XMLHttpRequest();
+    xhr.addEventListener("load", function (evt) {
+        responseBody.value = this.responseText;
+    });
+
+    submitRequest.addEventListener("click", function (evt) {
+        xhr.open("GET", requestUrl.value + "?" + textQueryString.value);
+        xhr.send();
+    });
+
+    window.addEventListener("load", function (evt) {
+        fillJson("object");
+    });
+</script>
