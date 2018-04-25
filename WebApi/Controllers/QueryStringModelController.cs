@@ -7,6 +7,9 @@ using System.Web.Http;
 
 namespace WebApi.Controllers
 {
+    /// <summary>
+    /// <author>114233762@qq.com</author>
+    /// </summary>
     public class QueryStringModelController : ApiController
     {
         #region SimpleObject
